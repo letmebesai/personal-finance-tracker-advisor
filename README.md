@@ -17,11 +17,12 @@ categorization pipeline and a retrieval-grounded financial analysis assistant.
 | `schema.sql` | Core PostgreSQL tables, indexes, and default categories. |
 | `categorization_pipeline.py` | Rules, embedding fallback, ingestion, and feedback loop. |
 | `rag_advisor_design.md` | Retrieval design and safety guardrails for the advisor. |
+| `reporting_views.sql` | Dashboard-ready category rollups and review queue. |
 
 ## Quick start
 
 1. Create a PostgreSQL database with the `pgcrypto` extension enabled.
-2. Run `psql -d finance_tracker -f schema.sql`.
+2. Run `psql -d finance_tracker -f schema.sql` followed by `psql -d finance_tracker -f reporting_views.sql`.
 3. Install the Python dependencies with `pip install -r requirements.txt`.
 4. Configure your database connection and call `ingest_and_categorize` with new transactions.
 
