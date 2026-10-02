@@ -17,6 +17,8 @@ from dataclasses import dataclass
 from typing import Optional
 import numpy as np
 
+from merchant_normalization import normalize_merchant
+
 
 # ---------------------------------------------------------------------------
 # 1. Rule-based fast path
@@ -143,16 +145,17 @@ def ingest_and_categorize(conn, new_transactions: list[dict]) -> None:
     with conn.cursor() as cur:
         for txn in new_transactions:
             result = categorize_transaction(txn["raw_description"], rules, ref_embeddings)
+            merchant_normalized = normalize_merchant(txn["raw_description"])
             cur.execute(
                 """
                 INSERT INTO transactions
                     (account_id, posted_date, amount, raw_description,
-                     category_id, categorization_method, categorization_confidence)
-                VALUES (%s, %s, %s, %s, %s, %s, %s)
+                     merchant_normalized, category_id, categorization_method, categorization_confidence)
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
                 ON CONFLICT (account_id, posted_date, amount, raw_description) DO NOTHING
                 """,
                 (txn["account_id"], txn["posted_date"], txn["amount"], txn["raw_description"],
-                 result.get("category_id"), result["method"], result.get("confidence")),
+                 merchant_normalized, result.get("category_id"), result["method"], result.get("confidence")),
             )
     conn.commit()
 
