@@ -18,6 +18,9 @@ categorization pipeline and a retrieval-grounded financial analysis assistant.
 | `categorization_pipeline.py` | Rules, embedding fallback, ingestion, and feedback loop. |
 | `rag_advisor_design.md` | Retrieval design and safety guardrails for the advisor. |
 | `reporting_views.sql` | Dashboard-ready category rollups and review queue. |
+| `seed_rules.sql` | Idempotent starter rules for common merchants. |
+| `budget_queries.sql` | Current-month budget progress view. |
+| `recurring_detection.py` | Repeated-charge candidate detector. |
 
 ## Quick start
 
@@ -25,6 +28,10 @@ categorization pipeline and a retrieval-grounded financial analysis assistant.
 2. Run `psql -d finance_tracker -f schema.sql` followed by `psql -d finance_tracker -f reporting_views.sql`.
 3. Install the Python dependencies with `pip install -r requirements.txt`.
 4. Configure your database connection and call `ingest_and_categorize` with new transactions.
+
+## Quality checks
+
+Run `python -m unittest discover -s tests` before opening a change. GitHub Actions runs the same test command on pushes and pull requests.
 
 ## Scope
 
