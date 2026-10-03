@@ -2,7 +2,6 @@
 
 from collections import defaultdict
 from dataclasses import dataclass
-from datetime import date
 from typing import Iterable
 
 
@@ -18,8 +17,12 @@ def find_recurring_candidates(transactions: Iterable[dict], min_occurrences: int
     grouped: dict[str, list[float]] = defaultdict(list)
     for transaction in transactions:
         merchant = transaction.get("merchant_normalized", "").strip()
-        if merchant and transaction.get("amount", 0) < 0:
-            grouped[merchant].append(abs(float(transaction["amount"])))
+        try:
+            amount = float(transaction.get("amount", 0))
+        except (TypeError, ValueError):
+            continue
+        if merchant and amount < 0:
+            grouped[merchant].append(abs(amount))
 
     candidates = []
     for merchant, amounts in grouped.items():
