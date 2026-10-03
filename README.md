@@ -21,6 +21,7 @@ categorization pipeline and a retrieval-grounded financial analysis assistant.
 | `seed_rules.sql` | Idempotent starter rules for common merchants. |
 | `budget_queries.sql` | Current-month budget progress view. |
 | `recurring_detection.py` | Repeated-charge candidate detector. |
+| `cashflow_queries.sql` | Monthly income, expense, and net cashflow view. |
 
 ## Quick start
 
@@ -32,6 +33,8 @@ categorization pipeline and a retrieval-grounded financial analysis assistant.
 ## Quality checks
 
 Run `python -m unittest discover -s tests` before opening a change. GitHub Actions runs the same test command on pushes and pull requests.
+
+See `data_quality.md` for the import and categorization checks that keep advisor responses grounded.
 
 ## Scope
 
