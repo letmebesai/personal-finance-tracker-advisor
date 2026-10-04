@@ -28,10 +28,14 @@ def parse_transactions_csv(contents: str) -> list[dict]:
             raise ValueError(f"Invalid transaction at row {row_number}") from error
         if not account_id or not raw_description or amount == 0:
             raise ValueError(f"Incomplete transaction at row {row_number}")
-        transactions.append({
+        transaction = {
             "account_id": account_id,
             "posted_date": posted_date,
             "amount": amount,
             "raw_description": raw_description,
-        })
+        }
+        category = (row.get("category") or "").strip()
+        if category:
+            transaction["category"] = category
+        transactions.append(transaction)
     return transactions
