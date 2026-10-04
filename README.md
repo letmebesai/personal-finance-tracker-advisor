@@ -22,6 +22,8 @@ categorization pipeline and a retrieval-grounded financial analysis assistant.
 | `budget_queries.sql` | Current-month budget progress view. |
 | `recurring_detection.py` | Repeated-charge candidate detector. |
 | `cashflow_queries.sql` | Monthly income, expense, and net cashflow view. |
+| `finance_cli.py` | CSV statement import and JSON summary command. |
+| `advisor_context.py` | JSON-safe facts for grounded advisor responses. |
 
 ## Quick start
 
@@ -30,11 +32,22 @@ categorization pipeline and a retrieval-grounded financial analysis assistant.
 3. Install the Python dependencies with `pip install -r requirements.txt`.
 4. Configure your database connection and call `ingest_and_categorize` with new transactions.
 
+### Command-line summary
+
+For a lightweight local analysis of a CSV statement, run:
+
+```text
+python finance_cli.py statement.csv
+```
+
+The CSV must include `account_id`, `posted_date`, `amount`, and `raw_description` columns. Add a `category` column to include category rankings in the output.
+
 ## Quality checks
 
 Run `python -m unittest discover -s tests` before opening a change. GitHub Actions runs the same test command on pushes and pull requests.
 
 See `data_quality.md` for the import and categorization checks that keep advisor responses grounded.
+See `CONTRIBUTING.md` for contribution and testing expectations.
 
 ## Scope
 

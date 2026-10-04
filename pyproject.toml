@@ -1,0 +1,8 @@
+[project]
+name = "personal-finance-tracker-advisor"
+version = "0.1.0"
+description = "Explainable personal-finance analysis and transaction categorization."
+requires-python = ">=3.11"
+
+[project.scripts]
+finance-tracker = "finance_cli:main"
