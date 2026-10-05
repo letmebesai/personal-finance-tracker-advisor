@@ -30,11 +30,11 @@ categorization pipeline and a retrieval-grounded financial analysis assistant.
 1. Create a PostgreSQL database with the `pgcrypto` extension enabled.
 2. Run `psql -d finance_tracker -f schema.sql` followed by `psql -d finance_tracker -f reporting_views.sql`.
 3. Install the Python dependencies with `pip install -r requirements.txt`.
-4. Configure your database connection and call `ingest_and_categorize` with new transactions.
+4. Configure the database connection and call `ingest_and_categorize` with new transactions.
 
 ### Command-line summary
 
-For a lightweight local analysis of a CSV statement, run:
+For a lightweight local analysis of a CSV statement, running:
 
 ```text
 python finance_cli.py statement.csv
